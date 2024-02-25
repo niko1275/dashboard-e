@@ -64,18 +64,27 @@ model Account {
   @@unique([provider, providerAccountId])
 }
 
-
+model Category {
+  id    Int     @id @default(autoincrement())
+  name  String  
+  products Product[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
 
 model Product {
-  id      Int      @id @default(autoincrement())
-  title   String   @unique
-  desc    String
-  price   Float
-  stock   Int
-  img      String? 
-  imgUrl   String? 
-  color   String?
-  size    String?
+  id        Int      @id @default(autoincrement())
+  title     String   @unique
+  desc      String
+  price     Float
+  stock     Int
+  img       String?
+  imgUrl    String?
+  color     String?
+  size      String?
+  
+  categoryId Int
+  category   Category @relation(fields: [categoryId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
